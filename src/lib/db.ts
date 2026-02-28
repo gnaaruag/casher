@@ -128,6 +128,9 @@ export async function createCategory(
 export async function deleteCategory(id: string): Promise<void> {
   const db = await getDB();
   await db.delete("categories", id);
+  // cascade: remove all transactions under this category
+  const txs = await db.getAllFromIndex("transactions", "by-categoryId", id);
+  for (const tx of txs) await db.delete("transactions", tx.id);
 }
 
 // ── Transactions ───────────────────────────────────────────
