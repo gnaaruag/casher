@@ -1,26 +1,166 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-pink: var(--pink);
+  --color-hot-pink: var(--hot-pink);
+  --color-dater-orange: var(--orange);
+  --color-dater-red: var(--red);
+  --color-dater-green: var(--green);
+  --color-dater-blue: var(--blue);
+  --color-dater-yellow: var(--yellow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --bg: #fffcf5;
+  --cream: #fffcf5;
+  --ink: #1a1a1a;
+  --pink: #f5a0b8;
+  --hot-pink: #e84b8a;
+  --orange: #f28a2e;
+  --red: #d63c2f;
+  --green: #2d8f4e;
+  --blue: #4a9fd6;
+  --yellow: #f7c948;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+  overscroll-behavior: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-eb-garamond), "EB Garamond", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.field {
+  font-size: 1.05rem;
+  padding: 10px 14px;
+  border: 2.5px solid var(--ink);
+  border-radius: 10px;
+  background: white;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+}
+
+.field:focus {
+  border-color: var(--orange);
+  box-shadow: 3px 3px 0 var(--yellow);
+}
+
+@supports (-webkit-touch-callout: none) {
+  .field {
+    font-size: 16px;
+  }
+}
+
+.scroll-picker {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 30%,
+    black 70%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 30%,
+    black 70%,
+    transparent
+  );
+}
+
+.scroll-picker-inner {
+  overflow-y: auto;
+  height: 100%;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-picker-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-picker-item {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-size: 1.1rem;
+  color: var(--ink);
+  opacity: 0.35;
+  transition: opacity 0.15s ease;
+}
+
+.scroll-picker-item.active {
+  opacity: 1;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
